@@ -67,7 +67,7 @@
                                         <svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                                     </div>
                                     <div>
-                                        <p class="text-sm font-bold text-slate-900">Request #{{ $request->id }} &middot; <span class="font-medium text-indigo-600">{{ $request->user->name ?? 'Client' }}</span></p>
+                                        <p class="text-sm font-bold text-slate-900">Request #{{ $request->id }} &middot; <span class="font-medium text-indigo-600">{{ $request->customer_name }}</span></p>
                                         <p class="mt-0.5 text-xs text-slate-500 flex items-center gap-1">
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                             {{ $request->created_at->diffForHumans() }}

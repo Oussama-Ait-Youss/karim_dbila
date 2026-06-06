@@ -2,27 +2,28 @@
 
 @section('content')
 <!-- Hero Section -->
-<section class="relative bg-gradient-to-r from-[#eef2f1] to-[#f4f7f6] py-16 lg:py-24 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center">
-        <div class="md:w-1/2 md:pr-12 text-center md:text-left">
-            <h1 class="text-5xl lg:text-6xl font-semibold text-gray-900 leading-tight mb-6 tracking-tight">
-                Timeless Elegance In <br/><span class="text-brand">Every Space</span>
+<div class="relative min-h-screen w-full flex items-center overflow-hidden">
+    
+    <div class="absolute inset-0 w-full h-full -z-10">
+        <img src="{{ asset('images/home_page.jpg') }}" alt="Everclay Studio Presentation" class="w-full h-full object-cover object-center">
+    </div>
+
+    <div class="w-full max-w-7xl mx-auto px-6 md:px-12 lg:px-16 flex justify-between items-center z-10 pt-20">
+        
+        <div class="max-w-xl lg:max-w-2xl">
+            <h1 class="text-4xl md:text-6xl font-serif text-slate-900 tracking-tight mb-6 leading-tight">
+                Timeless Elegance In Every Space
             </h1>
-            <p class="text-gray-600 mb-8 text-lg max-w-md mx-auto md:mx-0">
-                Elevate every sip with thoughtfully crafted glassware for everyday moments and special occasions.
+            <p class="text-base md:text-lg text-slate-600 font-light max-w-md mb-8 leading-relaxed">
+                Elevate your everyday rituals with thoughtfully handcrafted ceramics and beautiful earthenware.
             </p>
-            <a href="#" class="inline-block border-2 border-brand text-brand hover:bg-brand hover:text-white transition-colors px-10 py-3.5 rounded-full font-medium text-sm tracking-widest shadow-sm hover:shadow-md">
+            <a href="{{ route('products.index') }}" class="inline-block px-8 py-3.5 border-2 border-brand text-brand font-medium text-sm tracking-wider uppercase rounded-lg transition-colors hover:bg-brand hover:text-white">
                 SHOP NOW
             </a>
         </div>
-        <div class="md:w-1/2 mt-12 md:mt-0 relative flex justify-center">
-            <!-- Decorative circle accent -->
-            <div class="absolute right-0 top-1/2 -translate-y-1/2 w-72 h-72 bg-brand rounded-full mix-blend-multiply opacity-80 blur-2xl"></div>
-            <!-- Main Hero Image (Using a representative vase image) -->
-            <img src="https://images.unsplash.com/photo-1610701596007-11502861dcfa?q=80&w=800&auto=format&fit=crop" alt="Ceramic Vases" class="relative z-10 w-full max-w-sm rounded-2xl shadow-2xl object-cover h-[450px]">
-        </div>
+
     </div>
-</section>
+</div>
 
 <!-- Categories Block -->
 <section class="py-20 bg-white">
@@ -62,7 +63,7 @@
         <div class="relative z-10 max-w-xl text-center md:text-left">
             <h2 class="text-3xl md:text-4xl font-semibold mb-4 leading-tight">Exclusive Ceramic Collection Sale</h2>
             <p class="text-white opacity-80 mb-8 font-light text-lg">Upgrade your space with handcrafted ceramic pieces, earthenware and decor designed for elegance and durability.</p>
-            <a href="#" class="text-white border-b-2 border-white pb-1 font-semibold tracking-wide hover:text-gray-200 hover:border-gray-200 transition-colors inline-flex items-center gap-2">
+            <a href="{{ route('products.index') }}" class="text-white border-b-2 border-white pb-1 font-semibold tracking-wide hover:text-gray-200 hover:border-gray-200 transition-colors inline-flex items-center gap-2">
                 SHOP NOW <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
         </div>
@@ -79,9 +80,9 @@
     <div class="flex flex-col md:flex-row justify-between items-center md:items-end mb-10 gap-4">
         <h2 class="text-4xl font-bold text-gray-900">Our Best Seller</h2>
         <div class="flex gap-3">
-            <button class="px-6 py-2 rounded-full bg-brand text-white text-sm font-semibold tracking-wide shadow-md">Ceramic</button>
-            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors">Glass</button>
-            <button class="px-6 py-2 rounded-full border border-gray-300 text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors">Pottery</button>
+            <a href="{{ route('products.index', ['category' => 'ceramic']) }}" class="px-6 py-2 rounded-full text-sm font-semibold tracking-wide transition-colors {{ request('category') === 'ceramic' ? 'bg-[#115E59] text-white shadow-md' : 'border border-gray-300 text-gray-600 hover:bg-gray-50' }}">Ceramic</a>
+            <a href="{{ route('products.index', ['category' => 'glass']) }}" class="px-6 py-2 rounded-full text-sm font-semibold tracking-wide transition-colors {{ request('category') === 'glass' ? 'bg-[#115E59] text-white shadow-md' : 'border border-gray-300 text-gray-600 hover:bg-gray-50' }}">Glass</a>
+            <a href="{{ route('products.index', ['category' => 'pottery']) }}" class="px-6 py-2 rounded-full text-sm font-semibold tracking-wide transition-colors {{ request('category') === 'pottery' ? 'bg-[#115E59] text-white shadow-md' : 'border border-gray-300 text-gray-600 hover:bg-gray-50' }}">Pottery</a>
         </div>
     </div>
 
@@ -132,9 +133,8 @@
         @endforelse
     </div>
 
-    <!-- View All CTA -->
     <div class="mt-16 text-center">
-        <a href="#" class="inline-block border-2 border-brand text-brand hover:bg-brand hover:text-white transition-colors px-10 py-3 rounded-full font-semibold text-sm tracking-widest shadow-sm">
+        <a href="{{ route('products.index') }}" class="inline-block border-2 border-brand text-brand hover:bg-brand hover:text-white transition-colors px-10 py-3 rounded-full font-semibold text-sm tracking-widest shadow-sm">
             VIEW ALL PRODUCT
         </a>
     </div>

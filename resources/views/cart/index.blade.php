@@ -27,11 +27,21 @@
                             <p class="text-gray-500 font-medium">Qty: {{ $item['quantity'] }}</p>
                         </div>
                         
-                        <div class="text-right">
-                            <div class="text-xl font-bold text-brand mb-1">
-                                ${{ number_format($item['price'] * $item['quantity'], 2) }}
+                        <div class="text-right flex flex-col items-end gap-3">
+                            <div>
+                                <div class="text-xl font-bold text-brand mb-1">
+                                    ${{ number_format($item['price'] * $item['quantity'], 2) }}
+                                </div>
+                                <span class="text-xs text-gray-400">${{ number_format($item['price'], 2) }} each</span>
                             </div>
-                            <span class="text-xs text-gray-400">${{ number_format($item['price'], 2) }} each</span>
+                            <form action="{{ route('cart.remove', $id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-500 hover:text-red-700 text-sm font-semibold flex items-center gap-1 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                    Remove
+                                </button>
+                            </form>
                         </div>
                     </li>
                 @endforeach

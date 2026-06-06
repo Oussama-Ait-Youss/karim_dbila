@@ -15,7 +15,7 @@ class AdminDashboardController extends Controller
     {
         $totalProducts = \App\Models\Product::count();
         $pendingRequests = CustomRequest::where('status', 'pending_review')->count();
-        $recentOrders = CustomRequest::with('user')->latest()->take(5)->get();
+        $recentOrders = CustomRequest::latest()->take(5)->get();
         
         $totalOrders = class_exists(\App\Models\Order::class) ? \App\Models\Order::count() : CustomRequest::count();
 

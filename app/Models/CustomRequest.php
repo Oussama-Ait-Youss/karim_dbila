@@ -10,20 +10,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class CustomRequest extends Model
 {
     protected $fillable = [
-        'user_id',
-        'description',
-        'requested_height',
-        'requested_diameter',
+        'customer_name',
+        'customer_email',
+        'customer_phone',
+        'design_vision',
+        'height',
+        'diameter',
         'clay_type',
-        'glaze_type',
-        'sketch_image_path',
+        'glaze_finish',
+        'reference_image',
         'status',
         'quoted_price',
         'stripe_payment_intent_id',
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
 }

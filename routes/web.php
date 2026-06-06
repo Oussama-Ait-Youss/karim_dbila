@@ -22,13 +22,14 @@ Route::view('/contact', 'contact')->name('contact');
 
 // Custom Bespoke Request Form
 Route::get('/custom-request', [CustomRequestController::class, 'create'])->name('custom-request.create');
+Route::post('/bespoke', [CustomRequestController::class, 'store'])->name('custom-request.store');
 
 // Shopping Cart Routing
 Route::post('/cart/add/{product}', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 
 Route::middleware('auth')->group(function () {
-    Route::post('/custom-requests', [CustomRequestController::class, 'store'])->name('custom-requests.store');
     
     // Stripe Checkout Routes
     Route::post('/custom-requests/{customRequest}/checkout', [PaymentController::class, 'checkoutCustomRequest'])->name('custom-requests.checkout');
