@@ -11,12 +11,23 @@ class ProductController extends Controller
     /**
      * Display a listing of all products.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        // Eager load primary images and paginate cleanly
-        $products = Product::with(['images' => function ($query) {
+        $query = Product::with(['images' => function ($query) {
             $query->where('is_primary', true);
-        }])->latest()->paginate(16);
+        }])->latest();
+
+        // Filter by category slug if present in URL query string
+        if ($request->has('category')) {
+            $query->where('category', $request->category);
+        }
+
+        // Search name or description if search keyword is submitted
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        $products = $query->paginate(16)->appends($request->query());
 
         return view('products.index', compact('products'));
     }

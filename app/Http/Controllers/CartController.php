@@ -58,4 +58,20 @@ class CartController extends Controller
 
         return redirect()->back()->with('success', "{$product->name} has been added to your cart!");
     }
+
+    /**
+     * Remove a product from the shopping cart.
+     */
+    public function remove(Request $request, $id): RedirectResponse
+    {
+        $cart = session()->get('cart', []);
+
+        if (isset($cart[$id])) {
+            unset($cart[$id]);
+            session()->put('cart', $cart);
+            return redirect()->back()->with('success', 'Item removed from your cart.');
+        }
+
+        return redirect()->back()->with('error', 'Item not found in your cart.');
+    }
 }

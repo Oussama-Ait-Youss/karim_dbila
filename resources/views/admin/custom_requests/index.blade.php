@@ -1,70 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Custom Requests</title>
-    
-    <!-- Google Fonts for typography -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS CDN with Forms Plugin -->
-    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        slate: {
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased h-full">
+@extends('layouts.admin')
 
-    <div class="min-h-full">
-        <!-- Minimalist Admin Navbar -->
-        <nav class="bg-slate-900 shadow-md">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex">
-                        <div class="flex-shrink-0 flex items-center">
-                            <span class="text-white font-bold text-lg tracking-tight flex items-center gap-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
-                                </svg>
-                                Studio Admin
-                            </span>
-                        </div>
-                    </div>
-                    <div class="flex items-center">
-                        <span class="text-slate-300 text-sm font-medium">Administrator</span>
-                    </div>
-                </div>
-            </div>
-        </nav>
+@section('title', 'Custom Requests')
 
-        <!-- Main Content Area -->
-        <main class="py-10">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+@section('admin_content')
+    <div class="max-w-7xl mx-auto">
                 
                 <div class="sm:flex sm:items-center sm:justify-between mb-8 border-b border-slate-200 pb-5">
                     <div>
@@ -73,16 +12,6 @@
                     </div>
                 </div>
 
-                <!-- Success Flash Alert -->
-                @if(session('success'))
-                    <div class="mb-8 bg-emerald-50 border border-emerald-200 rounded-xl p-4 flex items-center shadow-sm">
-                        <svg class="h-6 w-6 text-emerald-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                        <span class="text-emerald-800 font-medium">{{ session('success') }}</span>
-                    </div>
-                @endif
-
                 <!-- Dynamic Request Cards -->
                 <div class="space-y-8">
                     @forelse ($customRequests as $request)
@@ -90,9 +19,9 @@
                             
                             <!-- Uploaded Artwork Thumbnail -->
                             <div class="lg:w-80 flex-shrink-0 bg-slate-50 border-b lg:border-b-0 lg:border-r border-slate-200 flex flex-col">
-                                @if($request->sketch_image_path)
-                                    <a href="{{ asset('storage/' . $request->sketch_image_path) }}" target="_blank" class="block h-full group relative overflow-hidden">
-                                        <img src="{{ asset('storage/' . $request->sketch_image_path) }}" alt="Client Sketch" class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
+                                @if($request->reference_image)
+                                    <a href="{{ asset('storage/' . $request->reference_image) }}" target="_blank" class="block h-full group relative overflow-hidden">
+                                        <img src="{{ asset('storage/' . $request->reference_image) }}" alt="Client Sketch" class="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out">
                                         <div class="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors flex items-center justify-center">
                                             <span class="opacity-0 group-hover:opacity-100 bg-white/90 text-slate-800 text-xs font-semibold px-3 py-1 rounded-full shadow-sm transition-opacity">View Full Size</span>
                                         </div>
@@ -119,9 +48,13 @@
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-slate-400" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                                             </svg>
-                                            <span class="font-semibold text-slate-800">{{ $request->user->name ?? 'Unknown Client' }}</span> 
+                                            <span class="font-semibold text-slate-800">{{ $request->customer_name }}</span> 
                                             &middot; 
-                                            <a href="mailto:{{ $request->user->email ?? '' }}" class="text-blue-600 hover:underline">{{ $request->user->email ?? 'No email' }}</a>
+                                            <a href="mailto:{{ $request->customer_email }}" class="text-blue-600 hover:underline">{{ $request->customer_email }}</a>
+                                            @if($request->customer_phone)
+                                                &middot; 
+                                                <span class="text-slate-500">{{ $request->customer_phone }}</span>
+                                            @endif
                                         </p>
                                     </div>
                                     <div>
@@ -153,7 +86,7 @@
                                         </div>
                                         <div>
                                             <span class="block text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-0.5">Dimensions</span>
-                                            <p class="text-slate-800 text-sm font-medium">H: {{ $request->requested_height ? $request->requested_height . ' cm' : 'TBD' }} <span class="text-slate-300 mx-1">&times;</span> D: {{ $request->requested_diameter ? $request->requested_diameter . ' cm' : 'TBD' }}</p>
+                                            <p class="text-slate-800 text-sm font-medium">H: {{ $request->height ? $request->height . ' cm' : 'TBD' }} <span class="text-slate-300 mx-1">&times;</span> D: {{ $request->diameter ? $request->diameter . ' cm' : 'TBD' }}</p>
                                         </div>
                                     </div>
                                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 flex items-start gap-3">
@@ -165,7 +98,7 @@
                                         <div>
                                             <span class="block text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-0.5">Materials</span>
                                             <p class="text-slate-800 text-sm font-medium"><span class="text-slate-500 font-normal">Clay:</span> {{ $request->clay_type ? ucfirst($request->clay_type) : 'Studio Rec' }}</p>
-                                            <p class="text-slate-800 text-sm font-medium"><span class="text-slate-500 font-normal">Glaze:</span> {{ $request->glaze_type ? ucfirst($request->glaze_type) : 'Studio Rec' }}</p>
+                                            <p class="text-slate-800 text-sm font-medium"><span class="text-slate-500 font-normal">Glaze:</span> {{ $request->glaze_finish ? ucfirst($request->glaze_finish) : 'Studio Rec' }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +106,7 @@
                                 <!-- Description Block -->
                                 <div class="mb-6 flex-1">
                                     <span class="block text-slate-500 font-bold text-[10px] uppercase tracking-widest mb-2">Client Description & Vision</span>
-                                    <div class="text-sm text-slate-700 bg-white p-4 border border-slate-200 rounded-xl leading-relaxed whitespace-pre-line shadow-inner shadow-slate-50">{{ $request->description }}</div>
+                                    <div class="text-sm text-slate-700 bg-white p-4 border border-slate-200 rounded-xl leading-relaxed whitespace-pre-line shadow-inner shadow-slate-50">{{ $request->design_vision }}</div>
                                 </div>
 
                                 <!-- Pricing Action Footer -->
@@ -247,9 +180,5 @@
                     </div>
                 @endif
                 
-            </div>
-        </main>
     </div>
-
-</body>
-</html>
+@endsection
