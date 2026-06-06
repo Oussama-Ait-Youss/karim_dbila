@@ -6,9 +6,18 @@ use App\Http\Requests\StoreCustomRequest;
 use App\Models\CustomRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class CustomRequestController extends Controller
 {
+    /**
+     * Show the form for creating a new custom bespoke request.
+     */
+    public function create(): View
+    {
+        return view('custom_requests.create');
+    }
+
     /**
      * Store a newly created custom bespoke request in storage.
      */

@@ -10,6 +10,7 @@ use Illuminate\View\View;
 
 class AdminCustomRequestController extends Controller
 {
+
     /**
      * List all incoming pending custom requests.
      */
